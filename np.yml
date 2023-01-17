@@ -1,22 +1,22 @@
 apiVersion: v1
 kind: Pod
 metadata:
+  name: np-pod
   labels:
-    name: hello
-  name: hello
+    app: np-pod
 spec:
   containers:
-  - image: 192.168.0.195:5000/sryteacher:hello
-    name: hello
-status: {}
+    - name: np-container
+      image: 192.168.0.195:5000/nginx:1.0
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-svc
+  name: np-svc
 spec:
   selector:
-    name: hello
+    app: np-pod
   ports:
     - name: http
       protocol: TCP
@@ -24,4 +24,3 @@ spec:
       targetPort: 80
       nodePort: 30001
   type: NodePort
-
